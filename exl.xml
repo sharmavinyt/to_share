@@ -1,0 +1,123 @@
+<URL>
+	<PATHDETAILS>
+		<D_TMP>D:/tmp/misdownloadfiles/</D_TMP>
+		<D_FINAL>D:/tmp/misdownloadfiles/</D_FINAL>
+		<U_TMP>C:/ProgramData/MySQL/MySQL Server 8.3/Uploads/</U_TMP>
+		<LOGPATH>D:/logs/reporting/</LOGPATH>
+		<SPEAKERPATH>D:/</SPEAKERPATH>
+		<UTILITYPATH>D:/usr/local/bin/restAllSH/</UTILITYPATH>
+		<IP>local</IP>
+		<SKIN>report3</SKIN>
+		<IMAGE_NAME>logo.png</IMAGE_NAME>
+		<HEADING>MIS Services</HEADING>
+	</PATHDETAILS>
+	<UPLOADER>
+		<DBDETAILS dbname='employee'>
+			<PASSWORD>exl</PASSWORD>
+			<LOADTYPE> </LOADTYPE>
+			<TABLENAME> </TABLENAME>
+			<!--<FILEPARAMETER id="Employees" appname_clmn="created_by='&lt;USERNAME&gt;', created_datetime=NOW()" attribute='employee_id, first_name, last_name, email, phone_number, hire_date, job_title' table_name='employees_uploader'>Employee Code, First Name, Last Name, Email-ID, Phone Number, Job Title</FILEPARAMETER>-->
+			<!--<FILEPARAMETER id="Assits" appname_clmn="created_by='&lt;USERNAME&gt;', created_datetime=NOW(), updated_by='&lt;USERNAME&gt;', updated_datetime=NOW()" attribute='asset_id, asset_type, asset_name, purchase_date, assigned_date, employee_id' table_name='assets'>Asset Id, Asset Type, Asset Name, Purchase Date, Assigned Date, Employee Code</FILEPARAMETER>-->
+			<TIME2RUNINDEX>-1</TIME2RUNINDEX>
+			<REGEX>[0-9]{10},([^,]*)</REGEX>
+		</DBDETAILS>
+		<GENIRIC>
+
+			<DEFAULTINSERT>c_date=current_date</DEFAULTINSERT>
+
+		</GENIRIC>
+	</UPLOADER>
+
+	<MIS type='speaker' title='Employees' index="3">
+		<DBNAME>employee</DBNAME>
+		<TABLENAME>employees</TABLENAME>
+		<DEFAULTQUERY> </DEFAULTQUERY>
+		<EDITCOLUMNSINROW>2</EDITCOLUMNSINROW>
+		<ORDERBY> order by employee_id desc </ORDERBY>
+		<SEARCHOPTIONS>
+			<TEXT title='First Name' attribute='first_name' operator='=' value='' />
+			<TEXT title='Last Name' attribute='last_name' operator='=' value='' />
+			<CALENDER title='From Hire Date' attribute='hire_date' operator='&gt;=' value='2000-01-01' />
+			<CALENDER title='To Hire Date' attribute='hire_date' operator='&lt;=' value='' />
+			<SELECT title='Asset Name' attribute="asset_name" value='all,=' autoquery="select val_text, val_text from employee.employee_master em  where val_type = 'JOB_TITLE' group by 1"/>
+		</SEARCHOPTIONS>
+		<VIEWDETAILS>
+			<COLUMNS attribute='employee_id' update='no' isdownload='true'>Employee Code</COLUMNS>
+			<COLUMNS attribute='first_name' update='no' isdownload='true' >First Name</COLUMNS>
+			<COLUMNS attribute='last_name' update='no' isdownload='true'>Last Name</COLUMNS>
+			<COLUMNS attribute='email' update='yes' isdownload='true' validation="email">Email-ID</COLUMNS>
+			<COLUMNS attribute="phone_number" update='yes' isdownload='true' mandatory="true" validation="int,12,">Phone Number</COLUMNS>
+			<COLUMNS attribute="hire_date" update='yes' isdownload='true' edit_type='date' format='0000-00-00' mandatory="true">Hire Date</COLUMNS>
+			<COLUMNS attribute="job_title" update='yes' isdownload='true' combo="SELECT job_title,job_title from employee.employees group by 1,2" mandatory="true">Job Title</COLUMNS>
+			<COLUMNS attribute="created_by" isdownload="true">Created By</COLUMNS>
+			<COLUMNS attribute="created_datetime" isdownload="true">Created Date</COLUMNS>
+			<COLUMNS attribute='employee_id' isdownload='edit' disableonattribute="" disableonoperator="=" disableonvalue="" edit_type='OFFLINE' defaultset="updated_datetime=now(),updated_by='&lt;USERNAME&gt;'">Edit</COLUMNS>
+			<COLUMNS attribute='employee_id' isdownload='delete'>Delete</COLUMNS>
+		</VIEWDETAILS>
+	</MIS>
+
+
+	<MIS type='speaker' title='Assits'>
+		<DBNAME>employee</DBNAME>
+		<TABLENAME>assets</TABLENAME>
+		<EDITCOLUMNSINROW>2</EDITCOLUMNSINROW>
+		<DEFAULTQUERY> </DEFAULTQUERY>
+		<ORDERBY>order by asset_id desc</ORDERBY>
+		<SEARCHOPTIONS>
+			<TEXT title='Employee Code' attribute='employee_id' operator='=' value='' />
+			<SELECT title='Asset Type' index="1" attribute="asset_type" value='all,=' autoquery="select asset_type,asset_type from employee.asset_master group by 1" query="select asset_value,asset_value from employee.asset_master where asset_type='?' group by 1"/>
+			<SELECT title='Asset Name' attribute="asset_name" value='all,='/>
+			</SEARCHOPTIONS>
+
+		<VIEWDETAILS>
+			<COLUMNS attribute='asset_id' isdownload='true' update="no">Asset Id</COLUMNS>
+			<COLUMNS attribute="employee_id" isdownload='true' update="no">Employee Code</COLUMNS>
+			<COLUMNS attribute='employee.get_employee_name(employee_id) as employee_name' isdownload='true' update="no">Employee Name</COLUMNS>
+			<COLUMNS attribute="asset_type" isdownload="true" update="yes" combo="select asset_type,asset_type from employee.asset_master group by 1" query="select asset_value,asset_value from employee.asset_master where asset_type='?' group by 1" referenceto="COMBO-asset_name" mandatory="true">Asset Type</COLUMNS>
+			<COLUMNS attribute="asset_name" isdownload='true' update="yes" combo="@Select" mandatory="true">Asset Name</COLUMNS>
+			<COLUMNS attribute="purchase_date" isdownload='true' mandatory="true">Purchase Date</COLUMNS>
+			<COLUMNS attribute="assigned_date" isdownload='true' update="yes" edit_type="date" format="0000-00-00" mandatory="true">Assigned Date</COLUMNS>
+			<COLUMNS attribute="created_by" isdownload='true'>Created By</COLUMNS>
+			<COLUMNS attribute="created_datetime" isdownload='true'>Created On</COLUMNS>
+			<COLUMNS attribute='asset_id' isdownload='edit' disableonattribute="" disableonoperator="=" disableonvalue="" edit_type='OFFLINE' defaultset="updated_datetime=now(),updated_by='&lt;USERNAME&gt;'">Edit</COLUMNS>
+			<COLUMNS attribute='asset_id' isdownload='delete'>Delete</COLUMNS>
+		</VIEWDETAILS>
+	</MIS>
+	<INSERT title="Add Employee" index="2">
+		<DBNAME>employee</DBNAME>
+		<TABLENAME>employees</TABLENAME>
+		<DEFAULTINSERT> created_by='&lt;USERNAME&gt;', created_datetime=NOW()</DEFAULTINSERT>
+		<CHECKQUERYBEFOREINSERT>SELECT count(*) as exist FROM employee.employees where employee_id='&lt;employee_id&gt;' LIMIT 1</CHECKQUERYBEFOREINSERT>
+		<CHECKQUERYSUCCESSVALUE>1</CHECKQUERYSUCCESSVALUE>
+		<INSERTFAILMSG>Please check for the duplicate Employee Code: &lt;employee_id&gt;</INSERTFAILMSG>
+		<INSERTSUCCESSMSG>&lt;employee_id&gt; added successfully to the employee directory</INSERTSUCCESSMSG>
+		<INSERTPARAMETER>
+			<TEXT title='Employee Code' attribute='employee_id' operator='=' value='' property="int,10" mandatory="true"/>
+			<TEXT title='First Name' attribute='first_name' operator='=' value='' property="string,50," mandatory="true"/>
+			<TEXT title='Last Name' attribute='last_name' operator='=' value='' property="string,50," mandatory="true"/>
+			<TEXT title="Email-ID" attribute='email' operator="=" value='' property="email" mandatory="true"/>
+			<TEXT title="Phone Number" attribute="phone_number" operator="=" value="" property="int,12," mandatory="true"/>
+			<CALENDER title="Hire Date" attribute="hire_date" operator="" value="" property="date" mandatory="true"/>
+			<SELECT title='Job Title' attribute='job_title' operator="=" autoquery="select val_text, val_text from employee.employee_master em  where val_type = 'JOB_TITLE' group by 1" mandatory="true"/>
+		</INSERTPARAMETER>
+	</INSERT>
+	<INSERT title="Add Assit" index="2">
+		<DBNAME>employee</DBNAME>
+		<TABLENAME>assets</TABLENAME>
+		<DEFAULTINSERT> created_by='&lt;USERNAME&gt;', created_datetime=NOW()</DEFAULTINSERT>
+		<CHECKQUERYBEFOREINSERT>SELECT count(*) as exist FROM employee.assets where asset_id=&lt;asset_id&gt; LIMIT 1</CHECKQUERYBEFOREINSERT>
+		<CHECKQUERYSUCCESSVALUE>1</CHECKQUERYSUCCESSVALUE>
+		<INSERTFAILMSG>Please check for the duplicate Asset Id: &lt;asset_id&gt; assignment</INSERTFAILMSG>
+		<INSERTSUCCESSMSG>&lt;asset_id&gt; added successfully attached to the employee code: &lt;employee_id&gt;</INSERTSUCCESSMSG>
+		<INSERTPARAMETER>
+			<TEXT title='Employee Code' attribute='employee_id' operator='=' value='' property="int,10" mandatory="true"/>
+			<TEXT title='Asset Id' attribute='asset_id' operator='=' value='' property="int,10," mandatory="true"/>
+			<SELECT title='Asset Type' attribute='asset_type' operator='=' value='' autoquery="select asset_type,asset_type from employee.asset_master group by 1" query="select asset_value,asset_value from employee.asset_master where asset_type='?' group by 1" index="1"  mandatory="true"/>
+			<SELECT title="Asset Name" attribute='asset_name' operator="=" value='' mandatory="true"/>
+			<CALENDER title="Purchase Date" attribute="purchase_date" operator="=" value="" property="date" mandatory="true"/>
+			<CALENDER title="Assigned Date" attribute="assigned_date" operator="" value="" property="date" mandatory="true"/>
+
+		</INSERTPARAMETER>
+	</INSERT>
+</URL>
+
