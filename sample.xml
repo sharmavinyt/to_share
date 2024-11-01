@@ -13,7 +13,7 @@
 	</PATHDETAILS>
 	<UPLOADER>
 		<DBDETAILS dbname='employee'>
-			<PASSWORD>exl</PASSWORD>
+			<PASSWORD>sample</PASSWORD>
 			<LOADTYPE> </LOADTYPE>
 			<TABLENAME> </TABLENAME>
 			<!--<FILEPARAMETER id="Employees" appname_clmn="created_by='&lt;USERNAME&gt;', created_datetime=NOW()" attribute='employee_id, first_name, last_name, email, phone_number, hire_date, job_title' table_name='employees_uploader'>Employee Code, First Name, Last Name, Email-ID, Phone Number, Job Title</FILEPARAMETER>-->
