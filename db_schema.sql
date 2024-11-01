@@ -79,13 +79,13 @@ CREATE TABLE `employees` (
   PRIMARY KEY (`employee_id`)
 ) ENGINE=InnoDB
 INSERT INTO employees (first_name,last_name,email,phone_number,hire_date,job_title,created_by,created_datetime,updated_by,updated_datetime,file_id) VALUES
-	 ('Vineet','Sharma','vineet.sharma@exlservice.com','9911773883','2024-03-04','Manager','vineet','2024-09-18 16:45:01','',NULL,NULL),
-	 ('Rahul','Kashyap','rahul.kashyap@exlservice.com','9911773888','2023-03-04','Senior Manager','vineet','2024-09-18 16:46:07','',NULL,NULL),
-	 ('Anil','Bajpai','anil.bajpai@exlservice.com','+119191919','2018-03-04','Senior AVP','vineet','2024-09-18 16:48:08','',NULL,NULL),
-	 ('Ankit','Aggarwal','ankit.aggarwal@exlservice.com','991177221','2023-08-04','Manager','vineet','2024-09-18 16:49:10','',NULL,NULL),
-	 ('Vikas','Mishra','vikas.mishra@exlservice.com','9911773881','2023-06-01','Assitant Manager','vineet','2024-09-18 16:51:14','',NULL,NULL),
-	 ('Yogesh','Vats','yogesh.vats@exlservice.com','987972912','2022-05-20','Developer','vineet','2024-09-18 16:51:14','@LOGINUSER','2024-09-18 18:59:36',NULL),
-	 ('Vikas','Sharma','vikas.sharma@exlservice.com','09897720821','2024-09-21','Developer','exl','2024-09-21 00:26:52','exl','2024-09-23 17:15:11',NULL);
+	 ('Vineet','Sharma','vineet.sharma','9911773883','2024-03-04','Manager','vineet','2024-09-18 16:45:01','',NULL,NULL),
+	 ('Rahul','Kashyap','rahul.kashyap','9911773888','2023-03-04','Senior Manager','vineet','2024-09-18 16:46:07','',NULL,NULL),
+	 ('Anil','Bajpai','anil.bajpai','+119191919','2018-03-04','Senior AVP','vineet','2024-09-18 16:48:08','',NULL,NULL),
+	 ('Ankit','Aggarwal','ankit.aggarwal','991177221','2023-08-04','Manager','vineet','2024-09-18 16:49:10','',NULL,NULL),
+	 ('Vikas','Mishra','vikas.mishra','9911773881','2023-06-01','Assitant Manager','vineet','2024-09-18 16:51:14','',NULL,NULL),
+	 ('Yogesh','Vats','yogesh.vats','987972912','2022-05-20','Developer','vineet','2024-09-18 16:51:14','@LOGINUSER','2024-09-18 18:59:36',NULL),
+	 ('Vikas','Sharma','vikas.sharma','09897720821','2024-09-21','Developer','exl','2024-09-21 00:26:52','exl','2024-09-23 17:15:11',NULL);
 	 
 CREATE TABLE `assets` (
   `asset_id` int NOT NULL AUTO_INCREMENT,
